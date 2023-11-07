@@ -68,8 +68,8 @@ include('navbar.php'); // Inclui a barra de navegação comum
 
     <hr class="featurette-divider" id="ftr1">
 
-    <div class="row featurette" data-aos="fade-up">
-      <div class="col-md-7">
+    <div class="row featurette">
+      <div class="col-md-7" data-aos="fade-up">
         <h2 class="featurette-heading">Leva um sistema de informação <span class="text-muted">eficiente</span> para a tua escola</h2>
         <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
       </div>
@@ -81,8 +81,8 @@ include('navbar.php'); // Inclui a barra de navegação comum
 
     <hr class="featurette-divider">
 
-    <div class="row featurette" data-aos="fade-up">
-      <div class="col-md-7 order-md-2">
+    <div class="row featurette">
+      <div class="col-md-7 order-md-2" data-aos="fade-up">
         <h2 class="featurette-heading">Só mais um projeto... Ou <span class="text-muted">o projeto?</span></h2>
         <p class="lead">Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.</p>
       </div>
@@ -93,8 +93,8 @@ include('navbar.php'); // Inclui a barra de navegação comum
 
     <hr class="featurette-divider">
 
-    <div class="row featurette" data-aos="fade-up">
-      <div class="col-md-7">
+    <div class="row featurette">
+      <div class="col-md-7" data-aos="fade-up">
         <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
         <p class="lead">And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.</p>
       </div>
@@ -111,8 +111,8 @@ include('navbar.php'); // Inclui a barra de navegação comum
   <?php if (isset($_SESSION['username'])): ?>
 
   <?php else: ?>
-    <div class="container mt-4">
-    <div class="row justify-content-center">
+    <div class="container mt-1">
+      <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="jumbotron text-center">
                 <h1 class="display-4">Quer continuar a ler?</h1>
@@ -126,5 +126,5 @@ include('navbar.php'); // Inclui a barra de navegação comum
             </div>
         </div>
     </div>
-</div>
+  </div>
   <?php endif; ?>

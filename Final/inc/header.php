@@ -9,6 +9,16 @@
     <script>
         AOS.init();
     </script>
-
+    <style>
+        [data-aos] {
+            pointer-events: none;
+        }
+        .aos-animate {
+            pointer-events: auto;
+        }
+        .aos-init[data-aos][data-aos].aos-animate {
+            transform: unset;
+        }
+    </style>
 </head>
 <body>

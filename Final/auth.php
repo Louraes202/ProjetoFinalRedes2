@@ -41,8 +41,12 @@ if (isset($_POST['register'])) {
     $newUsername = $_POST['newUsername'];
     $newPassword = $_POST['newPassword'];
 
-    if (isset($users[$newUsername])) {
-        $register_error = "O nome de usuário já está em uso.";
+    // Verifica se a passowrd tem pelo menos 4 caracteres
+    if (strlen($newPassword) < 4) {
+        $register_error = "A passowrd deve ter pelo menos 4 caracteres.";
+    } elseif (!preg_match('/[A-Z]/', $newPassword) || !preg_match('/[a-z]/', $newPassword)) {
+        // Verifica se a passowrd contém pelo menos uma letra maiúscula e uma minúscula
+        $register_error = "A passowrd deve conter pelo menos uma letra maiúscula e uma minúscula.";
     } else {
         $_SESSION['user_profile'] = 'authenticated';
         $users[$newUsername] = $newPassword;
@@ -50,6 +54,7 @@ if (isset($_POST['register'])) {
         $registration_success = "Registo bem-sucedido. Bem-vindo, $newUsername!";
     }
 }
+
 
 if (isset($_POST['logout'])) {
     // Limpar apenas a variável do nome de usuário, mantendo os outros dados da sessão
@@ -67,45 +72,52 @@ $logged_in_user = isset($_SESSION['username']) ? $_SESSION['username'] : null;
 $user_profile = isset($_SESSION['user_profile']) ? $_SESSION['user_profile'] : 'unauthenticated';
 ?>
 
+<style>
+    .toast-element {
+    position: relative;
+    z-index: 10000; /* Valor alto para sobrepor os toasts */
+    /* Outros estilos e animações AOS */
+}
+</style>
 <!-- Toasts para mensagens de sucesso e erro -->
 <div class="position-fixed bottom-0 end-0 p-3">
     <?php if (isset($login_success)): ?>
-        <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast show toast-element" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header bg-success text-white">
                 <strong class="me-auto">Login Bem-Sucedido</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Fechar"></button>
             </div>
-            <div class="toast-body">
+            <div class="toast-body bg-light">
                 <?php echo $login_success; ?>
             </div>
         </div>
     <?php elseif (isset($login_error)): ?>
-        <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast show toast-element" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header bg-danger text-white">
                 <strong class="me-auto">Erro de Login</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Fechar"></button>
             </div>
-            <div class="toast-body">
+            <div class="toast-body bg-light">
                 <?php echo $login_error; ?>
             </div>
         </div>
     <?php elseif (isset($registration_success)): ?>
-        <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast show toast-element" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header bg-success text-white">
                 <strong class="me-auto">Registo Bem-Sucedido</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Fechar"></button>
             </div>
-            <div class="toast-body">
+            <div class="toast-body bg-light">
                 <?php echo $registration_success; ?>
             </div>
         </div>
     <?php elseif (isset($register_error)): ?>
-        <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast show toast-element" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header bg-danger text-white">
                 <strong class="me-auto">Erro de Registo</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Fechar"></button>
             </div>
-            <div class="toast-body">
+            <div class="toast-body bg-light">
                 <?php echo $register_error; ?>
             </div>
         </div>
