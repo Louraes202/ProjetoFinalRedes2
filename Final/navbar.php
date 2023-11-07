@@ -18,7 +18,7 @@
                 vertical-align: -.250em;
                 }
             </style>
-            <img src="logo.svg" class="icon"></svg>
+            <img src="img/logo.svg" class="icon"></svg>
                 PocketSchool
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,7 +48,7 @@
                     </li>
                 
                     <?php if ($user_profile === 'admin'): ?>
-                        <!-- Exibir este item apenas se o usuário for um administrador -->
+                        <!-- Exibir este item apenas se o utilizador for um administrador -->
                         <li class="nav-item">
                             <a class="nav-link" href="admin_panel.php">Painel de Administrador</a>
                         </li>
@@ -91,7 +91,7 @@
                     <!-- Formulário de Login -->
                     <form method="post">
                         <div class="mb-3">
-                            <label for="username" class="form-label">Nome de usuário</label>
+                            <label for="username" class="form-label">Nome de utilizador</label>
                             <input type="text" class="form-control" name="username" id="username" required>
                         </div>
                         <div class="mb-3">
@@ -122,7 +122,7 @@
                     <!-- Formulário de Registo -->
                     <form method="post">
                         <div class="mb-3">
-                            <label for="newUsername" class="form-label">Novo Nome de usuário</label>
+                            <label for="newUsername" class="form-label">Novo Nome de utilizador</label>
                             <input type="text" class="form-control" name="newUsername" id="newUsername" required>
                         </div>
                         <div class="mb-3">
