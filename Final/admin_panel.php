@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SF7X4trCk4pYEDbQTwQND6MhJojg6dgtNC5uq/iY2U+8f7pHDWVJDDfdOnK" crossorigin="anonymous">
 </head>
 <body>
     <?php
@@ -34,7 +33,7 @@
     }
 
     // Verificação do formulário para apagar um Utilizador
-    if (isset($_POST['deleteUser'])) {
+    if (isset($_POST['deleteUser'])) { 
         $usernameToDelete = $_POST['usernameToDelete'];
         if (isset($_SESSION['users'][$usernameToDelete])) {
             unset($_SESSION['users'][$usernameToDelete]); // Remove o Utilizador
@@ -46,9 +45,8 @@
     ?>
 
     <!-- Conteúdo específico da página Admin Panel -->
-    <div class="container">
+    <div class="container"> 
         <h1 class="mt-4">Admin Panel</h1>
-
         <!-- Tabela de Utilizadores -->
         <h2 class="mt-4">Lista de Utilizadores</h2>
         <table class="table table-bordered">
@@ -60,19 +58,26 @@
             </thead>
             <tbody>
                 <?php
-                foreach ($_SESSION['users'] as $username => $profile) {
-                    if ($profile === 'admin') {
-                        continue; // Pule os Utilizadores com perfil de administrador
-                    }
+                if (count($_SESSION['users']) === 1) { // Se só houver 1 utilizador é o próprio admin, logo ainda não há utilizadores
                     echo "<tr>";
-                    echo "<td>$username</td>";
-                    echo "<td>
-                            <form method='post'>
-                                <input type='hidden' name='usernameToDelete' value='$username'>
-                                <button type='submit' name='deleteUser' class='btn btn-danger'>Apagar</button>
-                            </form>
-                        </td>";
+                    echo "<td>Ainda não há utilizadores</td>";
                     echo "</tr>";
+                }
+                else {
+                    foreach ($_SESSION['users'] as $username => $profile) {
+                        if ($profile === 'admin') {
+                            continue; // Pule os Utilizadores com perfil de administrador
+                        }
+                        echo "<tr>";
+                        echo "<td>$username</td>";
+                        echo "<td>
+                                <form method='post'>
+                                    <input type='hidden' name='usernameToDelete' value='$username'>
+                                    <button type='submit' name='deleteUser' class='btn btn-danger'><i class='fa-solid fa-trash'></i></button>
+                                </form>
+                            </td>";
+                        echo "</tr>";
+                    }
                 }
                 ?>
             </tbody>
@@ -94,23 +99,30 @@
 
         <?php
         if (!empty($creation_error)) {
-            echo "<div class='alert alert-danger mt-3'>$creation_error</div>";
+            echo "<div class='d-flex justify-content-between alert alert-dimissible alert-danger mt-3'>$creation_error
+            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
         }
         if (!empty($creation_success)) {
-            echo "<div class='alert alert-success mt-3'>$creation_success</div>";
+            echo "<div class='d-flex justify-content-between alert alert-dimissible alert-success mt-3'>$creation_success
+            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
+        }
+        ?>
+        <!-- Mensagens de Apagar Utilizador -->
+        <?php
+        if (!empty($deletion_error)) {
+            echo "<div class='d-flex justify-content-between alert alert-dimissible alert-danger mt-3'>$deletion_error
+            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
+        }
+        if (!empty($deletion_success)) {
+            echo "<div class='d-flex justify-content-between alert alert-dimissible alert-success mt-3'>$deletion_success
+            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
         }
         ?>
     </div>
-
-    <!-- Mensagens de Apagar Utilizador -->
-    <?php
-    if (!empty($deletion_error)) {
-        echo "<div class='alert alert-danger mt-3'>$deletion_error</div>";
-    }
-    if (!empty($deletion_success)) {
-        echo "<div class='alert alert-success mt-3'>$deletion_success</div>";
-    }
-    ?>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Z9f5nuFv9T+o5cJfH+4MToXZ/DG1VKCE8pIwARgPw/xGqq" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-e0s9qqCipMGptazTvNdTZKJwsR6bJg6tjBh7yyC5VJwAQqU1ftnqd12F4f2leFbKu" crossorigin="anonymous"></script>

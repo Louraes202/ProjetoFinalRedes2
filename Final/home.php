@@ -111,7 +111,7 @@ include('navbar.php'); // Inclui a barra de navegação comum
   <?php if (isset($_SESSION['username'])): ?>
 
   <?php else: ?>
-    <div class="container mt-1">
+    <div class="container my-0">
       <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="jumbotron text-center">

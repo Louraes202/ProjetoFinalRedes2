@@ -42,8 +42,8 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="esen.php">ESEN</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">ESAM</a></li>
-                            <li><a class="dropdown-item" href="#">ESEV</a></li>
+                            <li><a class="dropdown-item disabled" href="#">ESAM</a></li>
+                            <li><a class="dropdown-item disabled" href="#">ESEV</a></li>
                         </ul>
                     </li>
                 

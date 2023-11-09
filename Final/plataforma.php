@@ -8,7 +8,9 @@ include('navbar.php'); // Inclui a barra de navegação comum
         <div class="row py-lg-5 text-light">
         <div class="col-lg-6 col-md-8 mx-auto" data-aos="fade-down">
             <h1 class="fw-light">Plataforma</h1>
-            <p class="lead">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+            <p class="lead">Queres requisitar o pocket school para implementar na tua escola? <br> Este é o sítio certo.
+                Preenche o seguinte formulário e vais receber uma resposta no teu email.
+            </p>
         </div>
         </div>
     </section>
