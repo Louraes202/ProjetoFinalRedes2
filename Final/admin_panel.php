@@ -1,48 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
-</head>
-<body>
-    <?php
-    include('navbar.php'); // Inclui a barra de navegação comum
+<?php
+require 'inc/header.php';
+include('navbar.php'); // Inclui a barra de navegação comum
 
 
-    if ($_SESSION['user_profile'] !== 'admin') {
-        // Utilizador não é um administrador, redirecione para a página anterior
-        echo "<p>Não tem acesso a esta página</p>";
-        exit;
+if ($_SESSION['user_profile'] !== 'admin') {
+    // Utilizador não é um administrador, redirecione para a página anterior
+    echo "<div class='d-flex justify-content-center align-items-center'><h2 class='display-2 font-weight-normal'>Não tem acesso a esta página. </h2> <i class='fas fa-ban'></i></div>";
+    exit;
+}
+
+// Verificação do formulário de criação de Utilizador
+$creation_error = "";
+$creation_success = "";
+
+if (isset($_POST['createUser'])) {
+    $newUsername = $_POST['newUsername'];
+    $newPassword = $_POST['newPassword'];
+
+    if (isset($_SESSION['users'][$newUsername])) {
+        $creation_error = "O nome de Utilizador já está em uso.";
+    } else {
+        $_SESSION['users'][$newUsername] = $newPassword; // Defina o perfil como "authenticated"
+        $creation_success = "Novo Utilizador '$newUsername' criado com sucesso!";
     }
+}
 
-    // Verificação do formulário de criação de Utilizador
-    $creation_error = "";
-    $creation_success = "";
-
-    if (isset($_POST['createUser'])) {
-        $newUsername = $_POST['newUsername'];
-        $newPassword = $_POST['newPassword'];
-
-        if (isset($_SESSION['users'][$newUsername])) {
-            $creation_error = "O nome de Utilizador já está em uso.";
-        } else {
-            $_SESSION['users'][$newUsername] = $newPassword; // Defina o perfil como "authenticated"
-            $creation_success = "Novo Utilizador '$newUsername' criado com sucesso!";
-        }
+// Verificação do formulário para apagar um Utilizador
+if (isset($_POST['deleteUser'])) { 
+    $usernameToDelete = $_POST['usernameToDelete'];
+    if (isset($_SESSION['users'][$usernameToDelete])) {
+        unset($_SESSION['users'][$usernameToDelete]); // Remove o Utilizador
+        $deletion_success = "Utilizador '$usernameToDelete' foi apagado com sucesso!";
+    } else {
+        $deletion_error = "Utilizador não encontrado. Nenhum Utilizador foi apagado.";
     }
-
-    // Verificação do formulário para apagar um Utilizador
-    if (isset($_POST['deleteUser'])) { 
-        $usernameToDelete = $_POST['usernameToDelete'];
-        if (isset($_SESSION['users'][$usernameToDelete])) {
-            unset($_SESSION['users'][$usernameToDelete]); // Remove o Utilizador
-            $deletion_success = "Utilizador '$usernameToDelete' foi apagado com sucesso!";
-        } else {
-            $deletion_error = "Utilizador não encontrado. Nenhum Utilizador foi apagado.";
-        }
-    }
-    ?>
+}
+?>
 
     <!-- Conteúdo específico da página Admin Panel -->
     <div class="container"> 
@@ -126,5 +119,8 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Z9f5nuFv9T+o5cJfH+4MToXZ/DG1VKCE8pIwARgPw/xGqq" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-e0s9qqCipMGptazTvNdTZKJwsR6bJg6tjBh7yyC5VJwAQqU1ftnqd12F4f2leFbKu" crossorigin="anonymous"></script>
-</body>
-</html>
+
+
+<?php
+    require 'inc/footer.php';
+?>
