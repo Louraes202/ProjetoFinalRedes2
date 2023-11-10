@@ -45,21 +45,21 @@ include('navbar.php'); // Inclui a barra de navegação comum
 
         <h2 class="my-2">Autor</h2>
         <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-        <p><a class="btn btn-secondary" href="#">View details »</a></p>
+        <p><a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#autorModal">Ver mais »</a></p>
       </div><!-- /.col-lg-4 -->
       <div class="col-lg-4" data-aos="fade-up">
         <img class="bd-placeholder-img rounded-circle" src="img/cursologo.png" width="140" height="140" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
 
         <h2 class="my-2">Curso</h2>
         <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
-        <p><a class="btn btn-secondary" href="#">View details »</a></p>
+        <p><a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#cursoModal">Ver mais »</a></p>
       </div><!-- /.col-lg-4 -->
       <div class="col-lg-4" data-aos="fade-up">
         <img class="bd-placeholder-img rounded-circle" src="img/ESENnoite.jpg" width="140" height="140" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
 
         <h2 class="my-2">Escola</h2>
         <p>And lastly this, the third column of representative placeholder content.</p>
-        <p><a class="btn btn-secondary" href="#">View details »</a></p>
+        <p><a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#escolaModal">Ver mais »</a></p>
       </div><!-- /.col-lg-4 -->
     </div><!-- /.row -->
 
@@ -108,6 +108,34 @@ include('navbar.php'); // Inclui a barra de navegação comum
     <!-- /END THE FEATURETTES -->
 
   </div>
+
+  <!-- Modal do autor (FAZER FUNÇÃO PARA RETORNAR ESTE CÓDIGO 3 VEZES, NOS 3 VIEW DETAILS--> 
+  <div class="modal fade" id="autorModal" tabindex="-1" aria-labelledby="authorModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="authorModalLabel">Detalhes do Autor</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <!-- Conteúdo do modal -->
+                  <div class="d-flex">
+                      <img src="img/autor.png" class="img-fluid rounded-circle me-3" alt="Imagem do Autor" width="140" height="140">
+                      <div class="my-2">
+                        <h2 class="">Martim Loureiro</h2>
+                        <h5 class="text-muted">Estudante de <a href="">GPSI<a></h2>
+                      </div>
+                  </div>
+                  <p>Alguma informação sobre o autor.</p>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
   <?php if (isset($_SESSION['username'])): ?>
 
   <?php else: ?>

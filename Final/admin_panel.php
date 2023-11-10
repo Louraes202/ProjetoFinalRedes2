@@ -1,5 +1,4 @@
 <?php
-require 'inc/header.php';
 include('navbar.php'); // Inclui a barra de navegação comum
 
 
@@ -116,11 +115,3 @@ if (isset($_POST['deleteUser'])) {
         }
         ?>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Z9f5nuFv9T+o5cJfH+4MToXZ/DG1VKCE8pIwARgPw/xGqq" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-e0s9qqCipMGptazTvNdTZKJwsR6bJg6tjBh7yyC5VJwAQqU1ftnqd12F4f2leFbKu" crossorigin="anonymous"></script>
-
-
-<?php
-    require 'inc/footer.php';
-?>
