@@ -50,7 +50,7 @@
                     <?php if ($user_profile === 'admin'): ?>
                         <!-- Exibir este item apenas se o utilizador for um administrador -->
                         <li class="nav-item">
-                            <a class="nav-link" href="admin_panel.php">Painel de Administrador</a>
+                            <a class="<?php echo ($current_page == 'admin_panel.php') ? "nav-link active" : "nav-link"; ?>" href="admin_panel.php">Painel de Administrador</a>
                         </li>
                     <?php else: ?>
                         

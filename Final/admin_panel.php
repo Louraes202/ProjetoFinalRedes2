@@ -19,7 +19,7 @@ if (isset($_POST['createUser'])) {
     if (isset($_SESSION['users'][$newUsername])) {
         $creation_error = "O nome de Utilizador já está em uso.";
     } else {
-        $_SESSION['users'][$newUsername] = $newPassword; // Defina o perfil como "authenticated"
+        $_SESSION['users'][$newUsername] = $newPassword; 
         $creation_success = "Novo Utilizador '$newUsername' criado com sucesso!";
     }
 }
@@ -36,12 +36,12 @@ if (isset($_POST['deleteUser'])) {
 }
 
 if (isset($_POST['editUser'])) { 
-    $usernameToEdit = $_POST['usernameToEdit'];
-    $passwordToEdit = $_POST['passwordToEdit'];
-    if (isset($_SESSION[$usernameToEdit][$passwordToEdit])) {
-
+    $usernameToEdit = $_POST['userToEdit'];
+    $passwordToEdit = $_POST['pwdToEdit'];
+    if (isset($_SESSION['users'][$usernameToEdit])) {
+        $_SESSION['users'][$usernameToEdit] = $passwordToEdit;
     } else {
-
+        //erro
     }
 }
 ?>
@@ -54,32 +54,7 @@ if (isset($_POST['editUser'])) {
     }
 
 </style>
-
-<!-- Modal para editar utilizador -->
-<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Editar utilizador</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Formulário de Edit -->
-                <form method="post">
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Nome de utilizador</label>
-                        <input type="text" class="form-control disabled" name="username" id="username" value="<?php $username ?>" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="text" class="form-control" name="password" id="password" required>
-                    </div>
-                    <button type="submit" name="login" class="btn btn-primary">Edit</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+<title> Painel Admin </title>
 
 <!-- Conteúdo específico da página Admin Panel -->
 <div class="container"> 
@@ -110,14 +85,10 @@ if (isset($_POST['editUser'])) {
                     echo "<td>$username</td>";
                     echo "<td>
                             <div class='d-flex gap-1'>
+                                <button name='editUser' class='btn icon-btn' data-bs-toggle='modal' data-bs-target='#editUserModal'><i class='fas fa-edit' style='color: #005eff;'></i></button>
                                 <form method='post'>
                                     <input type='hidden' name='usernameToDelete' value='$username'>
                                     <button type='submit' name='deleteUser' class='icon-btn btn'><i class='fa-solid fa-trash-can' style='color: #005eff;'></i></button>
-                                </form>
-                                <form method='post'>
-                                    <input type='hidden' name='usernameToEdit' value='$username'>
-                                    <input type='hidden' name='passwordToEdit' value='$password'>
-                                    <button type='submit' name='editUser' class='btn icon-btn' data-bs-toggle='modal' data-bs-target='#editUserModal'><i class='fas fa-edit' style='color: #005eff;'></i></button>
                                 </form>
                             </div>
                         </td>";
@@ -141,6 +112,32 @@ if (isset($_POST['editUser'])) {
         </div>
         <button type="submit" class="btn btn-success" name="createUser">Criar Utilizador</button>
     </form>
+
+    <!-- Modal para editar utilizador -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Editar utilizador</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulário de Edit -->
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="userToEdit" class="form-label">Nome de utilizador</label>
+                            <input type="text" class="form-control disabled" name="userToEdit" id="userToEdit" placeholder="Coloque aqui o utilizador" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pwdToEdit" class="form-label">Password</label>
+                            <input type="text" class="form-control" name="pwdToEdit" id="pwdToEdit" placeholder="Coloque aqui a nova password" required>
+                        </div>
+                        <button type="submit" name="editUser" class="btn btn-primary">Edit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <?php
     if (!empty($creation_error)) {
