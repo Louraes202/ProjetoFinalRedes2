@@ -120,7 +120,59 @@ include('navbar.php'); // Inclui a barra de navegação comum
               <div class="modal-body">
                   <!-- Conteúdo do modal -->
                   <div class="d-flex">
-                      <img src="img/autor.png" class="img-fluid rounded-circle me-3" alt="Imagem do Autor" width="140" height="140">
+                      <img src="img/autor.png" class="bd-placeholder-img rounded-circle me-3 mb-3" alt="Imagem do Autor" width="140" height="140">
+                      <div class="my-2">
+                        <h2 class="">Martim Loureiro</h2>
+                        <h5 class="text-muted">Estudante de <a href="">GPSI<a></h2>
+                      </div>
+                  </div>
+                  <p>Alguma informação sobre o autor.</p>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+    <!-- Modal do curso (FAZER FUNÇÃO PARA RETORNAR ESTE CÓDIGO 3 VEZES, NOS 3 VIEW DETAILS--> 
+    <div class="modal fade" id="cursoModal" tabindex="-1" aria-labelledby="courseModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="authorModalLabel">Detalhes do Curso</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <!-- Conteúdo do modal -->
+                  <div class="d-flex">
+                      <img src="img/cursologo.png" style=""class="bd-placeholder-img rounded-circle me-3 mb-3" alt="Imagem do Curso" width="140" height="140">
+                      <div class="my-2">
+                        <h2 class="">Martim Loureiro</h2>
+                        <h5 class="text-muted">Estudante de <a href="">GPSI<a></h2>
+                      </div>
+                  </div>
+                  <p>Alguma informação sobre o autor.</p>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+    <!-- Modal da escola (FAZER FUNÇÃO PARA RETORNAR ESTE CÓDIGO 3 VEZES, NOS 3 VIEW DETAILS--> 
+    <div class="modal fade" id="escolaModal" tabindex="-1" aria-labelledby="schoolModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="authorModalLabel">Detalhes da Escola</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <!-- Conteúdo do modal -->
+                  <div class="d-flex">
+                      <img src="img/esennoite.jpg" class="bd-placeholder-img rounded-circle me-3 mb-3 " alt="Imagem da Escola" width="140" height="140">
                       <div class="my-2">
                         <h2 class="">Martim Loureiro</h2>
                         <h5 class="text-muted">Estudante de <a href="">GPSI<a></h2>

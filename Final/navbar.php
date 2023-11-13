@@ -95,7 +95,7 @@
                             <input type="text" class="form-control" name="username" id="username" required>
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label">Senha</label>
+                            <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control" name="password" id="password" required>
                         </div>
                         <button type="submit" name="login" class="btn btn-primary">Login</button>
@@ -126,7 +126,7 @@
                             <input type="text" class="form-control" name="newUsername" id="newUsername" required>
                         </div>
                         <div class="mb-3">
-                            <label for="newPassword" class="form-label">Nova Senha</label>
+                            <label for="newPassword" class="form-label">Nova Password</label>
                             <input type="password" class="form-control" name="newPassword" id="newPassword" required>
                         </div>
                         <button type="submit" name="register" class="btn btn-primary">Registar</button>
