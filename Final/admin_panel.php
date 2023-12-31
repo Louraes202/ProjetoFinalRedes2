@@ -65,6 +65,7 @@ if (isset($_POST['editUser'])) {
         <thead>
             <tr>
                 <th>Nome de Utilizador</th>
+                <th>Password</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -83,6 +84,7 @@ if (isset($_POST['editUser'])) {
                     }
                     echo "<tr>";
                     echo "<td>$username</td>";
+                    echo "<td>$password</td>";
                     echo "<td>
                             <div class='d-flex gap-1'>
                                 <button name='editUser' class='btn icon-btn' data-bs-toggle='modal' data-bs-target='#editUserModal'><i class='fas fa-edit' style='color: #005eff;'></i></button>
