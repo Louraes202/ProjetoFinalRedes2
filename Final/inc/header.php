@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="img/logo.ico">
+    <link rel="icon" href="img/logo3.ico">
     <link rel="stylesheet" href="bg/bg1.css">
     <link rel="stylesheet" href="css/extra.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">

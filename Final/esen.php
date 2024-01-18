@@ -33,4 +33,4 @@ include('navbar.php'); // Inclui a barra de navegação comum
         </div>
     </div>
 </div>
-  <?php endif; ?>
+<?php endif; ?>

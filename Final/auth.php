@@ -1,17 +1,53 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['users'])) {
-    $_SESSION['users'] = [];
-    $_SESSION['users']['admin'] = 'admin';
+include './db/config.php';
+
+function getProfileByUsername($db, $username) {
+    $query = "SELECT profile FROM users WHERE username = :username";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':username', $username);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $result ? $result['profile'] : null;
 }
 
-$users = $_SESSION['users'];
+function createAdminUser($db) {
+    $adminUsername = 'admin';
+    $adminPassword = 'ServerSide1234';
+    $profile = 'admin';
+
+    // Check if the admin user already exists
+    $queryCheck = "SELECT * FROM users WHERE username = :username";
+    $stmtCheck = $db->prepare($queryCheck);
+    $stmtCheck->bindParam(':username', $adminUsername);
+    $stmtCheck->execute();
+    $existingAdmin = $stmtCheck->fetch(PDO::FETCH_ASSOC);
+
+    if (!$existingAdmin) {
+        // Create the admin user with 'admin' profile
+        $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT); // Hash the password
+
+        $queryInsert = "INSERT INTO users (username, password, profile) VALUES (:username, :password, :profile)";
+        $stmtInsert = $db->prepare($queryInsert);
+        $stmtInsert->bindParam(':username', $adminUsername);
+        $stmtInsert->bindValue(':password', $hashedPassword); // Use bindValue here
+        $stmtInsert->bindParam(':profile', $profile);
+        $stmtInsert->execute();
+    }
+}
+
+$db = connect_db();
+
+if (!$db) {
+    die("Error connecting to the database.");
+}
+
+createAdminUser($db);
 
 if (isset($_POST['logout'])) {
-    // Limpar apenas a variável do nome de usuário, mantendo os outros dados da sessão
     unset($_SESSION['username']);
-    // Define o perfil do usuário como "guest"
     $_SESSION['user_profile'] = 'guest';
     $logged_in_user = null;
 }
@@ -20,57 +56,73 @@ if (isset($_POST['logout'])) {
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
-    
-    if (isset($users[$username]) && $users[$username] === $password) {
-        $_SESSION['username'] = $username;
-        
-        // Verifique se o usuário está na lista de administradores (use um array ou uma tabela de banco de dados para armazenar essa informação).
-        $admin_users = ['admin', 'outro_admin'];
-        if (in_array($username, $admin_users)) {
-            $_SESSION['user_profile'] = 'admin';
-        } else {
-            $_SESSION['user_profile'] = 'authenticated';
-        }
-        $login_success = "Login bem-sucedido. Bem-vindo, $username!";
+
+    $query = "SELECT * FROM users WHERE username = :username";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':username', $username);
+    $stmt->execute();
+
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user && password_verify($password, $user['password'])) {
+        $_SESSION['username'] = $user['username'];
+        $_SESSION['user_profile'] = $user['profile'];
+        $login_success = "Successful login. Welcome, $username!";
     } else {
-        $login_error = "Credenciais inválidas. Tente novamente.";
+        $login_error = "Invalid credentials.";
     }
 }
+
 
 if (isset($_POST['register'])) {
     $newUsername = $_POST['newUsername'];
     $newPassword = $_POST['newPassword'];
 
-    // Verifica se a passowrd tem pelo menos 4 caracteres
     if (strlen($newPassword) < 4) {
-        $register_error = "A passowrd deve ter pelo menos 4 caracteres.";
+        $register_error = "Password must be at least 4 characters.";
     } elseif (!preg_match('/[A-Z]/', $newPassword) || !preg_match('/[a-z]/', $newPassword)) {
-        // Verifica se a passowrd contém pelo menos uma letra maiúscula e uma minúscula
-        $register_error = "A passowrd deve conter pelo menos uma letra maiúscula e uma minúscula.";
+        $register_error = "Password must contain at least one uppercase and one lowercase letter.";
     } else {
-        $_SESSION['user_profile'] = 'authenticated';
-        $users[$newUsername] = $newPassword;
-        $_SESSION['username'] = $newUsername;
-        $registration_success = "Registo bem-sucedido. Bem-vindo, $newUsername!";
+        // Check if the user already exists
+        $queryCheck = "SELECT * FROM users WHERE username = :username";
+        $stmtCheck = $db->prepare($queryCheck);
+        $stmtCheck->bindParam(':username', $newUsername);
+        $stmtCheck->execute();
+        $existingUser = $stmtCheck->fetch(PDO::FETCH_ASSOC);
+
+        if ($existingUser) {
+            $register_error = "User already exists. Please choose a different username.";
+        } else {
+            // Assume 'user' profile by default
+            $userProfile = 'user';
+
+            // Check if the user being registered is an admin
+            if (in_array($newUsername, ['admin', 'other_admin'])) {
+                $userProfile = 'admin';
+            }
+
+            // Hash the password
+            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+            // Insert the new user with the appropriate profile and hashed password
+            $queryInsert = "INSERT INTO users (username, password, profile) VALUES (:username, :password, :profile)";
+            $stmtInsert = $db->prepare($queryInsert);
+            $stmtInsert->bindParam(':username', $newUsername);
+            $stmtInsert->bindParam(':password', $hashedPassword);
+            $stmtInsert->bindParam(':profile', $userProfile);
+            $stmtInsert->execute();
+
+            $_SESSION['user_profile'] = $userProfile;
+            $_SESSION['username'] = $newUsername;
+            $registration_success = "Successful registration. Welcome, $newUsername!";
+        }
     }
 }
 
-
-if (isset($_POST['logout'])) {
-    // Limpar apenas a variável do nome de usuário, mantendo os outros dados da sessão
-    unset($_SESSION['username']);
-    $logged_in_user = null;
-}
-
-// Atualizar a sessão com as credenciais de usuário
-$_SESSION['users'] = $users;
-
-// Verificar se o usuário está logado e exibir seu nome de usuário no cabeçalho
 $logged_in_user = isset($_SESSION['username']) ? $_SESSION['username'] : null;
-
-// Determinar o perfil do usuário atual
 $user_profile = isset($_SESSION['user_profile']) ? $_SESSION['user_profile'] : 'unauthenticated';
 ?>
+
 
 <style>
     .toast-element {

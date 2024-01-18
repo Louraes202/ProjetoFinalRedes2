@@ -1,25 +1,58 @@
 <?php
-include('navbar.php'); // Inclui a barra de navegação comum
-
+include('navbar.php');
 
 if ($_SESSION['user_profile'] !== 'admin') {
-    // Utilizador não é um administrador, redirecione para a página anterior
     echo "<div class='d-flex justify-content-center align-items-center'><h2 class='display-2 font-weight-normal'>Não tem acesso a esta página. </h2> <i class='fas fa-ban'></i></div>";
     exit;
 }
 
-// Verificação do formulário de criação de Utilizador
 $creation_error = "";
 $creation_success = "";
+$deletion_error = "";
+$deletion_success = "";
+$edit_error = "";
+$edit_success = "";
 
+$db = connect_db();
+
+if (!$db) {
+    die("Error connecting to the database.");
+}
+
+// Verificação do formulário de criação de Utilizador
 if (isset($_POST['createUser'])) {
     $newUsername = $_POST['newUsername'];
     $newPassword = $_POST['newPassword'];
 
-    if (isset($_SESSION['users'][$newUsername])) {
+    // Check if the user already exists
+    $queryCheck = "SELECT * FROM users WHERE username = :username";
+    $stmtCheck = $db->prepare($queryCheck);
+    $stmtCheck->bindParam(':username', $newUsername);
+    $stmtCheck->execute();
+    $existingUser = $stmtCheck->fetch(PDO::FETCH_ASSOC);
+
+    if ($existingUser) {
         $creation_error = "O nome de Utilizador já está em uso.";
     } else {
-        $_SESSION['users'][$newUsername] = $newPassword; 
+        // Assume 'user' profile by default
+        $userProfile = 'user';
+
+        // Check if the user being registered is an admin
+        if (in_array($newUsername, ['admin', 'other_admin'])) {
+            $userProfile = 'admin';
+        }
+
+        // Hash the password
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        // Insert the new user with the appropriate profile and hashed password
+        $queryInsert = "INSERT INTO users (username, password, profile) VALUES (:username, :password, :profile)";
+        $stmtInsert = $db->prepare($queryInsert);
+        $stmtInsert->bindParam(':username', $newUsername);
+        $stmtInsert->bindParam(':password', $hashedPassword);
+        $stmtInsert->bindParam(':profile', $userProfile);
+        $stmtInsert->execute();
+
         $creation_success = "Novo Utilizador '$newUsername' criado com sucesso!";
     }
 }
@@ -27,24 +60,46 @@ if (isset($_POST['createUser'])) {
 // Verificação do formulário para apagar um Utilizador
 if (isset($_POST['deleteUser'])) { 
     $usernameToDelete = $_POST['usernameToDelete'];
-    if (isset($_SESSION['users'][$usernameToDelete])) {
-        unset($_SESSION['users'][$usernameToDelete]); // Remove o Utilizador
+
+    // Delete the user from the database
+    $queryDelete = "DELETE FROM users WHERE username = :username";
+    $stmtDelete = $db->prepare($queryDelete);
+    $stmtDelete->bindParam(':username', $usernameToDelete);
+    $stmtDelete->execute();
+
+    if ($stmtDelete->rowCount() > 0) {
         $deletion_success = "Utilizador '$usernameToDelete' foi apagado com sucesso!";
     } else {
         $deletion_error = "Utilizador não encontrado. Nenhum Utilizador foi apagado.";
     }
 }
 
+// Fetch users from the database
+$querySelect = "SELECT * FROM users WHERE profile != 'admin'";
+$stmtSelect = $db->prepare($querySelect);
+$stmtSelect->execute();
+$users = $stmtSelect->fetchAll(PDO::FETCH_ASSOC);
+
+// Verificação do formulário para editar um Utilizador
 if (isset($_POST['editUser'])) { 
     $usernameToEdit = $_POST['userToEdit'];
     $passwordToEdit = $_POST['pwdToEdit'];
-    if (isset($_SESSION['users'][$usernameToEdit])) {
-        $_SESSION['users'][$usernameToEdit] = $passwordToEdit;
+
+    // Update the user's password in the database
+    $queryUpdate = "UPDATE users SET password = :password WHERE username = :username";
+    $stmtUpdate = $db->prepare($queryUpdate);
+    $stmtUpdate->bindParam(':username', $usernameToEdit);
+    $stmtUpdate->bindParam(':password', password_hash($passwordToEdit, PASSWORD_DEFAULT)); // Hash the new password
+    $stmtUpdate->execute();
+
+    if ($stmtUpdate->rowCount() > 0) {
+        $edit_success = "Password do Utilizador '$usernameToEdit' atualizada com sucesso!";
     } else {
-        //erro
+        $edit_error = "Erro ao atualizar a password do Utilizador.";
     }
 }
 ?>
+
 <style>
     .icon-btn {
       /* Resetando estilos padrão do botão */
@@ -59,46 +114,38 @@ if (isset($_POST['editUser'])) {
 <!-- Conteúdo específico da página Admin Panel -->
 <div class="container"> 
     <h1 class="mt-4">Admin Panel</h1>
-    <!-- Tabela de Utilizadores -->
     <h2 class="mt-4">Lista de Utilizadores</h2>
     <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Nome de Utilizador</th>
-                <th>Password</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            if (count($_SESSION['users']) === 1) { // Se só houver 1 utilizador é o próprio admin, logo ainda não há utilizadores
+    <thead>
+        <tr>
+            <th>Nome de Utilizador</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        if (count($users) === 0) {
+            echo "<tr>";
+            echo "<td>Ainda não há utilizadores</td>";
+            echo "</tr>";
+        } else {
+            foreach ($users as $user) {
                 echo "<tr>";
-                echo "<td>Ainda não há utilizadores</td>";
-                echo "<td></td>";
+                echo "<td>{$user['username']}</td>";
+                echo "<td>
+                        <div class='d-flex gap-1'>
+                            <button name='editUser' class='btn icon-btn' data-bs-toggle='modal' data-bs-target='#editUserModal' data-username='{$user['username']}'><i class='fas fa-edit' style='color: #005eff;'></i></button>
+                            <form method='post'>
+                                <input type='hidden' name='usernameToDelete' value='{$user['username']}'>
+                                <button type='submit' name='deleteUser' class='icon-btn btn'><i class='fa-solid fa-trash-can' style='color: #005eff;'></i></button>
+                            </form>
+                        </div>
+                    </td>";
                 echo "</tr>";
             }
-            else {
-                foreach ($_SESSION['users'] as $username => $password) {
-                    if ($password === 'admin') {
-                        continue; // Pule os Utilizadores com perfil de administrador
-                    }
-                    echo "<tr>";
-                    echo "<td>$username</td>";
-                    echo "<td>$password</td>";
-                    echo "<td>
-                            <div class='d-flex gap-1'>
-                                <button name='editUser' class='btn icon-btn' data-bs-toggle='modal' data-bs-target='#editUserModal'><i class='fas fa-edit' style='color: #005eff;'></i></button>
-                                <form method='post'>
-                                    <input type='hidden' name='usernameToDelete' value='$username'>
-                                    <button type='submit' name='deleteUser' class='icon-btn btn'><i class='fa-solid fa-trash-can' style='color: #005eff;'></i></button>
-                                </form>
-                            </div>
-                        </td>";
-                    echo "</tr>";
-                }
-            }
-            ?>
-        </tbody>
+        }
+        ?>
+    </tbody>
     </table>
 
     <!-- Formulário para criar novo Utilizador -->
@@ -128,7 +175,7 @@ if (isset($_POST['editUser'])) {
                     <form method="post">
                         <div class="mb-3">
                             <label for="userToEdit" class="form-label">Nome de utilizador</label>
-                            <input type="text" class="form-control disabled" name="userToEdit" id="userToEdit" placeholder="Coloque aqui o utilizador" required>
+                            <input type="text" class="form-control" name="userToEdit" id="userToEdit" placeholder="Coloque aqui o utilizador" required readonly>
                         </div>
                         <div class="mb-3">
                             <label for="pwdToEdit" class="form-label">Password</label>
@@ -140,6 +187,17 @@ if (isset($_POST['editUser'])) {
             </div>
         </div>
     </div>
+
+    <script>
+        // Populate the modal with username when the edit button is clicked
+        $('#editUserModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var username = button.data('username'); // Extract info from data-* attributes
+            var modal = $(this);
+            modal.find('.modal-body #userToEdit').val(username);
+        });
+    </script>
+
 
     <?php
     if (!empty($creation_error)) {

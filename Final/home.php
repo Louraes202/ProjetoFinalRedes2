@@ -28,7 +28,7 @@ include('navbar.php'); // Inclui a barra de navegação comum
 <!-- Conteúdo específico da página Home -->
 <div class="animcontainer">
     <div class="col-md-5 p-lg-5 p-4 mx-auto text-light" data-aos="zoom-out-down">
-            <h1 class="display-4 font-weight-normal">Bem-vindo à era do <b>Pocket School!</b></h1>
+            <h1 class="display-4 font-weight-normal">Bem-vindo à era do <b>Manage Me!</b></h1>
             <p class="lead font-weight-normal">Uma plataforma que pretende levar um sistema de informação implementável para todas as escolas.</p>
             <a class="btn btn-secondary" href="#ftr1">Saber mais</a>
     
