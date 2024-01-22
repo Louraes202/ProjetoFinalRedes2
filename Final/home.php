@@ -70,13 +70,13 @@ include('navbar.php'); // Inclui a barra de navegação comum
 
     <div class="row featurette">
       <div class="col-md-7" data-aos="fade-up">
-        <h2 class="featurette-heading">Leva um sistema de informação <span class="text-muted">eficiente</span> para a tua escola</h2>
-        <p class="lead">O PocketSchool redefine a forma como escolas se comunicam e gerem informações ao colocar toda a essência educativa na palma da mão, através de uma aplicação móvel inovadora. Focando-se na comunicação de eventos e informações escolares, esta app oferece uma revolução na interação entre a escola, alunos e encarregados de educação.
-        A aplicação simplifica a gestão escolar, disponibilizando facilmente eventos, comunicados e informações essenciais. Em vez de procurar em várias fontes, tudo o que os pais e alunos precisam está centralizado numa plataforma móvel, tornando a comunicação transparente e eficiente.
+        <h2 class="featurette-heading">Leva um sistema de informação <span class="text-muted">eficiente</span> para a tua vida</h2>
+        <p class="lead">O ManageMe redefine a abordagem à gestão pessoal, proporcionando ferramentas inovadoras que capacitam os utilizadores a assumirem o controle de sua organização e produtividade. Esta plataforma revolucionária, centrada na aplicação web principal e suporte adicional através do site, visa solucionar desafios comuns associados à má gestão pessoal, promovendo eficácia e bem-estar.
+        <br>Ao contrário das abordagens convencionais, o ManageMe não se limita a resolver um único problema, mas integra diversas ferramentas destinadas a aprimorar vários aspectos da gestão pessoal. Desde a inteligente gestão do tempo até a organização de tarefas, eventos, compromissos, gestão financeira, hábitos e rotinas, os módulos fornecem aos utilizadores uma solução abrangente para otimizar sua vida diária.
         </p>
       </div>
       <div class="col-md-5">
-        <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="img/logo2.png" width="500" height="500"  preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"></rect><text x="50%" y="50%" fill="#aaa" dy=".3em">
+        <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="img/manageme_logo.png" width="500" height="500"  preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"></rect><text x="50%" y="50%" fill="#aaa" dy=".3em">
 
       </div>
     </div>
@@ -85,13 +85,11 @@ include('navbar.php'); // Inclui a barra de navegação comum
 
     <div class="row featurette">
       <div class="col-md-7 order-md-2" data-aos="fade-up">
-        <h2 class="featurette-heading">A importância da tecnologia na <span class="text-muted">educação</span></h2>
-        <p class="lead">Num mundo em constante evolução, a educação é um campo que não pode ficar estagnado. À medida que a tecnologia avança, 
-          é imperativo que as instituições educativas abracem as inovações para proporcionar aos alunos uma experiência de aprendizagem mais enriquecedora e eficaz. 
-          Nesse contexto, a implementação de sistemas de informação em cada escola surge como uma peça-chave para impulsionar a transformação educativa.</p>
+        <h2 class="featurette-heading">A importância da produtividade na <span class="text-muted">vida pessoal e profissional</span></h2>
+        <p class="lead">Num mundo em constante evolução, a gestão pessoal é uma área que não pode ficar estagnada. À medida que a tecnologia avança, é imperativo que os indivíduos abracem inovações para proporcionar a si mesmos uma experiência de organização e produtividade mais enriquecedora e eficaz. Nesse contexto, a implementação de sistemas de informação pessoal surge como uma peça-chave para impulsionar a transformação na autogestão.</p>
       </div>
       <div class="col-md-5 order-md-1">
-      <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="img/techineducation.jpg" width="500" height="500"  preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"></rect><text x="50%" y="50%" fill="#aaa" dy=".3em">
+      <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="img/productivity.webp" width="500" height="500"  preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"></rect><text x="50%" y="50%" fill="#aaa" dy=".3em">
       </div>
     </div>
 
@@ -100,8 +98,8 @@ include('navbar.php'); // Inclui a barra de navegação comum
     <div class="row featurette">
       <div class="col-md-7" data-aos="fade-up">
         <h2 class="featurette-heading">Todos os serviços e recursos <span class="text-muted">numa única app</span></h2>
-        <p class="lead">O PocketSchool não é apenas uma aplicação; é uma solução completa que redefine a comunicação e a gestão de informações escolares. O processo de implementação começa aqui, no website atual, onde as escolas podem fazer o pré-registo para adquirir esta inovadora plataforma educativa.
-        Ao requisitar a plataforma neste site <a href="plataforma.php">(requisição)</a>, as escolas estão a dar o primeiro passo para uma experiência educativa transformadora. Este pré-registo funciona como um "pre-order", garantindo acesso prioritário à versão final assim que for lançada. A facilidade do processo permite que as escolas, num clique, iniciem o caminho para uma gestão escolar mais eficiente e uma comunicação mais transparente.</p>
+        <p class="lead">
+          O ManageMe não é apenas uma aplicação; é uma solução completa que redefine a gestão pessoal e a organização diária. O processo de implementação começa aqui, no website atual, onde os utilizadores podem fazer o pré-registo para adquirir esta inovadora plataforma de autogestão. Ao solicitar o acesso à plataforma neste site (requisição), os utilizadores estão a dar o primeiro passo para uma experiência de gestão pessoal transformadora.</p>
       </div>
       <div class="col-md-5">
       <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="img/mobile-app.jpg" width="500" height="500"  preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"></rect><text x="50%" y="50%" fill="#aaa" dy=".3em">

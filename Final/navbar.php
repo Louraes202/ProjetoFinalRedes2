@@ -19,6 +19,7 @@
         <img src="img/logo3.png" class="icon"></svg>
             ManageMe
         </a>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -34,22 +35,28 @@
                     <a class="<?php echo ($current_page == 'plataforma.php') ? "nav-link active" : "nav-link"; ?>" href="plataforma.php">Plataforma</a>
                 </li>
                 <li class="nav-item">
-                    <a class="<?php echo ($current_page == '') ? "nav-link active" : "nav-link"; ?>" href="plataforma.php">
-                        Download
-                    </a>
+                    <a class="<?php echo ($current_page == 'download.php') ? "nav-link active" : "nav-link"; ?>" href="download.php">Download</a>
                 </li>
+                <?php if ($user_profile === 'user'): ?>
+                    <li class="nav-item">
+                        <a class="<?php echo ($current_page == 'perfil.php') ? "nav-link active" : "nav-link"; ?>" href="perfil.php">Perfil</a>
+                    </li>
+                <?php endif; ?>
                 <li class="nav-item dropdown">
                     <a class="<?php echo ($current_page == 'esen.php') ? "nav-link dropdown-toggle active" : "nav-link dropdown-toggle"; ?>" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Recursos
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="esen.php">ESEN</a></li>
+                        <li><a class="dropdown-item" href="">Módulos funcionais</a></li>
+                        <li><a class="dropdown-item" href="">Documentação</a></li>
+                        <li><a class="dropdown-item" href="">API</a></li>
+                        <li><a class="dropdown-item" href="">Solução para empresas</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item disabled" href="#">ESAM</a></li>
-                        <li><a class="dropdown-item disabled" href="#">ESEV</a></li>
+                        <li><a class="dropdown-item disabled" href="#">Versão final</a></li>
                     </ul>
                 </li>
-            
+
+
                 <?php if ($user_profile === 'admin'): ?>
                     <!-- Exibir este item apenas se o utilizador for um administrador -->
                     <li class="nav-item">

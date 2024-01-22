@@ -1,6 +1,22 @@
 <?php
 include('navbar.php'); // Inclui a barra de navegação comum
+
 ?>
+<!-- loading modal --->
+<div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loadingModal">Loading</h5>
+            </div>
+            <div class="modal-body">
+                A sua requisição está a ser enviada...
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <title>Plataforma</title>
 <!-- Conteúdo específico da página Plataforma -->
 <div class="animcontainer">
@@ -41,7 +57,7 @@ include('navbar.php'); // Inclui a barra de navegação comum
             <label for="mensagem" class="form-label">Motivo da requisição</label>
             <textarea class="form-control" id="mensagem" name="mensagem" rows="4" required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Enviar Requisição</button>
+        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loadingModal">Enviar Requisição</button>
     </form>
 
 
@@ -59,6 +75,7 @@ include('navbar.php'); // Inclui a barra de navegação comum
             </div>
         <?php unset($_SESSION['success']); endif; ?>
         <?php if (isset($_SESSION['error'])): ?>
+            <script> $('#loadingModal').modal('hide'); </script>
             <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header bg-danger text-white">
                     <strong class="me-auto">Erro</strong>
