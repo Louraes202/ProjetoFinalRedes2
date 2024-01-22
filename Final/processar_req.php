@@ -1,9 +1,24 @@
 <?php
 session_start();
 
+// configuração do PHP Mail
+
+// $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+$mail->isSMTP();                                            //Send using SMTP
+$mail->Host       = 'sandbox.smtp.mailtrap.io';                     //Set the SMTP server to send through
+$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+$mail->Username   = 'c7b98bab02992a';                     //SMTP username
+$mail->Password   = '254fdd6652469b';                               //SMTP password
+$mail->Port = 2525;   
+
+// Recipients
+$mail->setFrom('from@example.com', 'Mailer');
+$mail->addAddress('peterlouraes@gmail.com', 'Peter');     //Name is optional
+
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Define uma variável de sessão para indicar sucesso
-
     $escolaNome = isset($_POST['escolaNome']) ? trim($_POST['escolaNome']) : '';
     $contatoNome = isset($_POST['contatoNome']) ? trim($_POST['contatoNome']) : '';
     $email = isset($_POST['email']) ? trim($_POST['email']) : '';
@@ -26,10 +41,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['email'] = $email;
     $_SESSION['mensagem'] = $mensagem;
 
+    // Envio do email para o servidor e para o requisitante
+    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->Subject = 'Here is the subject';
+    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+
     // Redireciona para a página do formulário
     header('Location: plataforma.php');
 } else {
-    // Se alguém acessar diretamente este script sem enviar o formulário, redireciona para o formulário
+    // Se alguém acessar de forma direta este script (sem enviar o formulário), redireciona para o formulário
     header('Location: plataforma.php');
 }
 ?>
