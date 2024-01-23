@@ -67,21 +67,35 @@
                 <?php endif; ?>
             </ul>
 
-            <div class="d-flex align-items-center justify">
-                <?php if ($logged_in_user): ?>
-                    <?php if ($user_profile === 'admin'): ?>
+            <!-- Adicione esta parte para exibir a fotografia de perfil -->
+            <?php if ($logged_in_user): ?>
+                <?php
+                $queryFotoNavbar = "SELECT foto_perfil FROM users WHERE username = :username";
+                $stmtFotoNavbar = $db->prepare($queryFotoNavbar);
+                $stmtFotoNavbar->bindParam(':username', $logged_in_user);
+                $stmtFotoNavbar->execute();
+                $resultFotoNavbar = $stmtFotoNavbar->fetch(PDO::FETCH_ASSOC);
+                $fotoPerfilNavbar = $resultFotoNavbar['foto_perfil'];
+                ?>
+
+                <div class="d-flex align-items-center justify-content-end">
+                    <?php if (!empty($fotoPerfilNavbar)): ?>
+                        <img src="uploads/<?php echo $fotoPerfilNavbar; ?>" alt="Foto de Perfil" class="img-thumbnail rounded-circle me-2" style="max-width: 40px; max-height: 40px; padding: 0; border-radius: 50%; border: 0; ">
+
+                    <?php elseif ($user_profile === 'admin'): ?>
                         <i class="fa-solid fa-screwdriver-wrench me-2" style="color: #ffffff;"></i>
                     <?php else: ?>
                         <i class="fa-solid fa-user me-2" style="color: #ffffff;"></i>
                     <?php endif; ?>
+
                     <p class="text-light me-3 my-0">Logado como <?php echo $logged_in_user; ?></p>
                     <form method="post" action="">
                         <button class="btn btn-danger" type="submit" name="logout">Sair</button>
                     </form>
-                <?php else: ?>
-                    <button class="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
-                <?php endif; ?>
-            </div>
+                </div>
+            <?php else: ?>
+                <button class="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+            <?php endif; ?>
             
             
         </div>

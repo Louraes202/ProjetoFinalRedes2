@@ -75,18 +75,46 @@ include('navbar.php'); // Inclui a barra de navegação comum
                             <input type="password" class="form-control" id="novaPassword" name="novaPassword">
                         </div>
 
-                        <!-- Adicione este campo para upload de foto de perfil -->
+
                         <div class="mb-3">
                             <label for="novaFotoPerfil" class="form-label">Nova Foto de Perfil</label>
                             <input type="file" class="form-control" id="novaFotoPerfil" name="novaFotoPerfil">
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                        <div class="mb-3 d-flex justify-content-start">
+                            <button type="submit" class="me-3 btn btn-primary">Guardar Alterações</button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#removerFotoModal">
+                                Remover Foto de Perfil
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal para confirmar a remoção da foto de perfil -->
+    <div class="modal fade" id="removerFotoModal" tabindex="-1" aria-labelledby="removerFotoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="removerFotoModalLabel">Remover Foto de Perfil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem a certeza de que deseja remover a sua foto de perfil?</p>
+                    <div class="d-flex">
+                        <button type="button" class="btn btn-secondary me-3" data-bs-dismiss="modal">Cancelar</button>
+                        
+                        <form action="" method="post" enctype="multipart/form-data">
+                            <button type="submit" class="btn btn-danger" value="removerFoto">Remover foto</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 

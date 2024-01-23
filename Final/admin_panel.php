@@ -89,7 +89,8 @@ if (isset($_POST['editUser'])) {
     $queryUpdate = "UPDATE users SET password = :password WHERE username = :username";
     $stmtUpdate = $db->prepare($queryUpdate);
     $stmtUpdate->bindParam(':username', $usernameToEdit);
-    $stmtUpdate->bindParam(':password', password_hash($passwordToEdit, PASSWORD_DEFAULT)); // Hash the new password
+    $passwordToEdit = password_hash($passwordToEdit, PASSWORD_DEFAULT);
+    $stmtUpdate->bindParam(':password', $passwordToEdit); // Hash the new password
     $stmtUpdate->execute();
 
     if ($stmtUpdate->rowCount() > 0) {

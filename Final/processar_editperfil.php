@@ -50,6 +50,19 @@ if (isset($_POST['novaPassword'])) {
         }
     }
 
+    // Adicionando a condição para remover a foto de perfil
+    if (isset($_POST['removerFoto']) && $_POST['removerFoto'] === 'remover') {
+        $queryRemoverFoto = "UPDATE users SET foto_perfil = NULL WHERE username = :username";
+        $stmtRemoverFoto = $db->prepare($queryRemoverFoto);
+        $stmtRemoverFoto->bindParam(':username', $username);
+
+        if (!$stmtRemoverFoto->execute()) {
+            $_SESSION['error'] = "Erro ao remover foto de perfil. Tente novamente.";
+            header("Location: perfil.php");
+            exit();
+        }
+    }
+
     $_SESSION['success'] = "Perfil atualizado com sucesso.";
     header("Location: perfil.php");
     exit();
