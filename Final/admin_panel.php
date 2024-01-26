@@ -150,18 +150,21 @@ if (isset($_POST['editUser'])) {
     </table>
 
     <!-- Formulário para criar novo Utilizador -->
-    <h2 class="mt-4">Criar Novo Utilizador</h2>
-    <form method="post" action="">
-        <div class="mb-3">
-            <label for="newUsername" class="form-label">Nome de Utilizador:</label>
-            <input type="text" class="form-control" name="newUsername" id="newUsername" required>
-        </div>
-        <div class="mb-3">
-            <label for="newPassword" class="form-label">Senha:</label>
-            <input type="password" class="form-control" name="newPassword" id="newPassword" required>
-        </div>
-        <button type="submit" class="btn btn-success" name="createUser">Criar Utilizador</button>
-    </form>
+    <div class="mb-5">
+        <h2 class="mt-4">Criar Novo Utilizador</h2>
+        <form method="post" action="">
+            <div class="mb-3">
+                <label for="idnewUsername" class="form-label">Nome de Utilizador:</label>
+                <input type="text" class="form-control" name="newUsername" id="idnewUsername" required>
+            </div>
+            <div class="mb-3">
+                <label for="idNewPassword" class="form-label">Senha:</label>
+                <input type="password" class="form-control" name="newPassword" id="idNewPassword" required>
+            </div>
+            <button type="submit" class="btn btn-success" name="createUser">Criar Utilizador</button>
+        </form>
+    </div>
+
 
     <!-- Modal para editar utilizador -->
     <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
@@ -173,10 +176,11 @@ if (isset($_POST['editUser'])) {
                 </div>
                 <div class="modal-body">
                     <!-- Formulário de Edit -->
-                    <form method="post">
+                    <form method="post" action="">
                         <div class="mb-3">
                             <label for="userToEdit" class="form-label">Nome de utilizador</label>
-                            <input type="text" class="form-control" name="userToEdit" id="userToEdit" placeholder="Coloque aqui o utilizador" required readonly>
+                            <input type="text" class="form-control" 
+                                name="userToEdit" id="userToEdit" placeholder="Coloque aqui o utilizador" required readonly>
                         </div>
                         <div class="mb-3">
                             <label for="pwdToEdit" class="form-label">Password</label>

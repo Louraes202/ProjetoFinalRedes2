@@ -80,7 +80,7 @@
 
                 <div class="d-flex align-items-center justify-content-end">
                     <?php if (!empty($fotoPerfilNavbar)): ?>
-                        <img src="uploads/<?php echo $fotoPerfilNavbar; ?>" alt="Foto de Perfil" class="img-thumbnail rounded-circle me-2" style="max-width: 40px; max-height: 40px; padding: 0; border-radius: 50%; border: 0; ">
+                        <img src="uploads/<?php echo $fotoPerfilNavbar; ?>" alt="Foto de Perfil" class="img-thumbnail rounded-circle me-2" style="width: 40px; height: 40px; object-fit: cover; background-size: cover; background-position: center; padding: 0; border: 0">
 
                     <?php elseif ($user_profile === 'admin'): ?>
                         <i class="fa-solid fa-screwdriver-wrench me-2" style="color: #ffffff;"></i>
@@ -165,6 +165,3 @@
     </div>
 </div>
 
-<?php 
-    require 'inc/footer.php';
-?>

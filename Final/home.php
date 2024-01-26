@@ -209,7 +209,63 @@ include('navbar.php'); // Inclui a barra de navegação comum
   </div>
 
 
+
+
   <?php if (isset($_SESSION['username'])): ?>
+
+  <div class="position-relative overflow-hidden bg-dark text-light">
+    <section class="container py-5">
+      <ul class="timeline">
+          <li class="timeline-item mb-5">
+              <h5 class="fw-bold">Génese do ManageMe</h5>
+              <p class=" mb-2 fw-bold">Agosto, 2023</p>
+              <p class="">
+                  No verão de 2023, surgiu a ideia de criar uma plataforma inovadora chamada ManageMe,
+                  dedicada a transformar a experiência de gestão pessoal. Embora eu ainda não tivesse todas as competências
+                  necessárias, conduzi uma pesquisa de mercado para entender como poderia implementar as minhas ideias
+                  e o meu projeto no mercado.
+              </p>
+          </li>
+
+          <li class="timeline-item mb-5">
+              <h5 class="fw-bold">Aplicação no contexto do Projeto de Aptidão Profissional</h5>
+              <p class=" mb-2 fw-bold">Setembro, 2023</p>
+              <p class="">
+                  Quando a época de aulas voltou, decidi aplicar a ideia no meu projeto final de curso.
+                  À medida que o tempo passava, estando eu no 12.º ano do curso profissional de
+                  Gestão e Programação de Sistemas Informáticos, as aulas começaram a fornecer-me as bases
+                  necessárias para começar o desenvolvimento de um projeto bem estruturado e
+                  desenvolvido a nível profissional.
+                  Comecei a sentir-me mais preparado e, como tal, entreguei o pré-projeto com a ideia
+                  do ManageMe, explicando tudo o que eu queria fazer e a exequibilidade do mesmo,
+                  incluindo as tecnologias que pretendia utilizar.
+              </p>
+          </li>
+
+          <li class="timeline-item mb-5">
+              <h5 class="fw-bold">Início do desenvolvimento da plataforma de suporte web</h5>
+              <p class=" mb-2 fw-bold">Outubro, 2023</p>
+              <p class="">
+                  Na disciplina de Redes de Comunicação, vi a oportunidade de desenvolver
+                  um projeto web que integrava o front-end (básico) e o back-end, e aproveitei
+                  esse momento para desenvolver uma plataforma de apoio web ao que seria o projeto
+                  do ManageMe, uma aplicação móvel.
+                  Nesta plataforma, estou a avaliar principalmente o back-end, ou seja, tudo
+                  o que é feito do lado do servidor.
+              </p>
+          </li>
+
+          <li class="timeline-item mb-5">
+              <h5 class="fw-bold">Entrega da plataforma de suporte web</h5>
+              <p class=" mb-2 fw-bold">Novembro, 2023</p>
+              <p class="">
+                  No dia 13 de novembro, entreguei este website como projeto para avaliação, como
+                  mencionado anteriormente.
+              </p>
+          </li>
+      </ul>
+    </section>
+  </div>
 
   <?php else: ?>
     <div class="container my-0">
@@ -229,3 +285,7 @@ include('navbar.php'); // Inclui a barra de navegação comum
     </div>
   </div>
   <?php endif; ?>
+
+  <?php
+    include('inc/footer.php'); 
+?>

@@ -1,12 +1,21 @@
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        AOS.init();
-    });
-    </script>
-    <script src="https://kit.fontawesome.com/a756a50383.js" crossorigin="anonymous"></script>
+<div class="position-relative overflow-hidden bg-secondary text-light">
+  <footer class="d-flex flex-wrap justify-content-between align-items-center px-3 my-2">
+      <p class="col-md-4 mb-0">© 2024 Manage Me, Martim Loureiro</p>
+
+      <div class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto ">
+        <a href="#" class="link-dark text-decoration-none">
+          <img class="bi me-2" width="32" height="32" src="./img/logo3.png"></svg>
+        </a>
+      </div>
+
+      <ul class="nav col-md-4 justify-content-end">
+        <li class="nav-item"><a href="#" class=""><i class="fa-brands fa-discord px-2 nav-link text-light"></i></a></li>
+        <li class="nav-item"><a href="#" class=""><i class="fa-brands fa-github px-2 nav-link text-light"></i></a></li>
+        <li class="nav-item"><a href="#" class=""><i class="fa-brands fa-facebook px-2 nav-link text-light"></i></a></li>
+        <li class="nav-item"><a href="#" class=""><i class="fa-brands fa-youtube px-2 nav-link text-light"></i></a></li>
+        <li class="nav-item"><a href="#" class=""><i class="fa-brands fa-linkedin px-2 nav-link text-light"></i></a></li>
+      </ul>
+  </footer>
+
 </body>
 </html>

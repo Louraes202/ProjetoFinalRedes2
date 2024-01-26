@@ -106,8 +106,9 @@ include('navbar.php'); // Inclui a barra de navegação comum
                     <div class="d-flex">
                         <button type="button" class="btn btn-secondary me-3" data-bs-dismiss="modal">Cancelar</button>
                         
-                        <form action="" method="post" enctype="multipart/form-data">
-                            <button type="submit" class="btn btn-danger" value="removerFoto">Remover foto</button>
+                        <form action="processar_editperfil.php" method="post" enctype="multipart/form-data">
+                            <input type="hidden" id="removerFoto" name="removerFoto"/>
+                            <button type="submit" class="btn btn-danger">Remover foto</button>
                         </form>
                     </div>
                 </div>
@@ -173,3 +174,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     </div>
 </div>
 <?php endif; ?>
+
+<?php
+    include('inc/footer.php'); 
+?>

@@ -119,3 +119,7 @@ include('navbar.php'); // Inclui a barra de navegação comum
     </div>
 </div>
 <?php endif; ?>
+
+<?php
+    include('inc/footer.php'); 
+?>

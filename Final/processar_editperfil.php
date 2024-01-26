@@ -14,7 +14,7 @@ if (isset($_POST['novaPassword'])) {
 
     $username = $_SESSION['username'];
 
-    // Se o campo da senha não estiver vazio, atualize a senha
+    // Se o campo da password não estiver vazio, atualiza a password
     if ($novaPassword !== '') {
         $hashedNovaPassword = password_hash($novaPassword, PASSWORD_DEFAULT);
         $querySenha = "UPDATE users SET password = :novaPassword WHERE username = :username";
@@ -23,13 +23,13 @@ if (isset($_POST['novaPassword'])) {
         $stmtSenha->bindParam(':username', $username);
 
         if (!$stmtSenha->execute()) {
-            $_SESSION['error'] = "Erro ao atualizar senha. Tente novamente.";
+            $_SESSION['error'] = "Erro ao atualizar password. Tente novamente.";
             header("Location: perfil.php");
             exit();
         }
     }
 
-    // Se o campo da foto de perfil não estiver vazio, atualize a foto de perfil
+    // Se o campo da foto de perfil não estiver vazio, atualiza a foto de perfil
     if (!empty($_FILES['novaFotoPerfil']['name'])) {
         $fotoPerfil = $_FILES['novaFotoPerfil'];
         $fotoPerfilName = $fotoPerfil['name'];
@@ -50,25 +50,40 @@ if (isset($_POST['novaPassword'])) {
         }
     }
 
-    // Adicionando a condição para remover a foto de perfil
-    if (isset($_POST['removerFoto']) && $_POST['removerFoto'] === 'remover') {
-        $queryRemoverFoto = "UPDATE users SET foto_perfil = NULL WHERE username = :username";
-        $stmtRemoverFoto = $db->prepare($queryRemoverFoto);
-        $stmtRemoverFoto->bindParam(':username', $username);
-
-        if (!$stmtRemoverFoto->execute()) {
-            $_SESSION['error'] = "Erro ao remover foto de perfil. Tente novamente.";
-            header("Location: perfil.php");
-            exit();
-        }
+    else {
+        $_SESSION['error'] = "Campo obrigatório não preenchido.";
+        header("Location: perfil.php");
+        exit();
     }
 
     $_SESSION['success'] = "Perfil atualizado com sucesso.";
     header("Location: perfil.php");
     exit();
-} else {
-    $_SESSION['error'] = "Campo obrigatório não preenchido.";
-    header("Location: perfil.php");
-    exit();
-}
+} 
+
+// A condição para remover a foto de perfil
+if (isset($_POST['removerFoto'])) {
+    $db = connect_db();
+    $username = $_SESSION['username'];
+
+    if (!$db) {
+        die("Erro ao conectar à base de dados.");
+    }
+
+    $queryRemoverFoto = "UPDATE users SET foto_perfil = NULL WHERE username = :username";
+    $stmtRemoverFoto = $db->prepare($queryRemoverFoto);
+    $stmtRemoverFoto->bindParam(':username', $username);
+
+    if (!$stmtRemoverFoto->execute()) {
+        $_SESSION['error'] = "Erro ao remover foto de perfil. Tente novamente.";
+        header("Location: perfil.php");
+        exit();
+    }
+    else {
+        $_SESSION['success'] = "Fotografia atualizada com sucesso.";
+        header("Location: perfil.php");
+    }
+
+}   
 ?>
+
