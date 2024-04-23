@@ -51,7 +51,7 @@ if (isset($_GET['search'])) {
         <!-- Search Form -->
         <form action="noticias.php" method="GET" class="mb-4">
             <div class="input-group mb-3">
-                <input type="text" name="search" class="form-control" placeholder="Search posts...">
+                <input type="text" name="search" class="form-control" placeholder="Search posts..." onkeyup="showResult(this.value)">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="submit">Search</button>
                 </div>
@@ -59,19 +59,47 @@ if (isset($_GET['search'])) {
         </form>
 
         <!-- Blog Posts Display -->
-        <?php foreach ($posts as $post): ?>
-            <div class="card mb-4">
-                <div class="card-header">
-                    <?= htmlspecialchars($post['titulo']) ?>
+        <div id="resultado-posts" class="container mt-4">
+            <div id="livesearch">
+                    <?php foreach ($posts as $post): ?>
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <?= htmlspecialchars($post['titulo']) ?>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-muted">By <?= htmlspecialchars($post['autor']) ?> on <?= $post['data_publicacao'] ?></h6>
+                        <p class="card-text"><?= nl2br(htmlspecialchars($post['conteudo'])) ?></p>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <h6 class="card-subtitle mb-2 text-muted">By <?= htmlspecialchars($post['autor']) ?> on <?= $post['data_publicacao'] ?></h6>
-                    <p class="card-text"><?= nl2br(htmlspecialchars($post['conteudo'])) ?></p>
-                </div>
+            <?php endforeach; ?>
             </div>
-        <?php endforeach; ?>
+
+
+
+        </div>
+
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+    function showResult(str) {
+        if (str.length == 0) {
+            document.getElementById("livesearch").innerHTML = "";
+            return;
+        }
+
+        $.ajax({
+            url: 'livesearch_blog.php?q=' + str,
+            type: 'GET',
+            success: function (response) {
+                document.getElementById("livesearch").innerHTML = response;
+            },
+            error: function () {
+                console.log('Erro ao carregar os resultados da pesquisa ao vivo.');
+            }
+        });
+    }
+    </script>
 </div>
 <?php endif; ?>
 
